@@ -6,7 +6,10 @@
 # - WIFI_SSID
 # - WIFI_PWD
 
-# Configures wifi (with nl-802.11 standard)
+SUMMARY = "Configures the WPA client for wifi connections."
+
+LICENSE = "MIT"
+LIC_FILES_CHKSUM = "file://${COMMON_LICENSE_DIR}/MIT;md5=0835ade698e0bcf8506ecda2f7b4f302"
 
 SRC_URI += "file://wifi-ap.conf"
 

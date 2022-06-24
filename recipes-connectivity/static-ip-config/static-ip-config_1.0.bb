@@ -35,7 +35,7 @@ TEMPLATE_FILES = "\
 python do_patch() {
     static_ip =  d.getVar('NETWORK_STATIC_IP', True)
     if static_ip is None:
-        bb.error "No static IP configured, but package 'system-static-ip' included!"
+        bb.error("No static IP configured, but package 'system-static-ip' included!")
 
     params = {
         "NETWORK_STATIC_IP": static_ip

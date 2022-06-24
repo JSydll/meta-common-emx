@@ -5,7 +5,7 @@
 # Depends on the following custom env vars exported to the yocto build:
 # - KEYBOARD_PROFILE
 
-DESCRIPTION = "Setup a specific keyboard-layout for the console"
+SUMMARY = "Setup a specific keyboard-layout for the console"
 
 LICENSE = "MIT"
 LIC_FILES_CHKSUM = "file://${COMMON_LICENSE_DIR}/MIT;md5=0835ade698e0bcf8506ecda2f7b4f302"
@@ -31,7 +31,7 @@ TEMPLATE_FILE = "${WORKDIR}/loadkeys.service"
 python do_patch_append() {
     profile = d.getVar('KEYBOARD_PROFILE', True)
     if profile is None:
-        bb.error "No keyboard profile specified, but package 'loadkeys' included!"
+        bb.error("No keyboard profile specified, but package 'loadkeys' included!")
     
     params = {
         "PROFILE" : profile 
