@@ -1,0 +1,7 @@
+[Match]
+Name=wlan*
+KernelCommandLine=!nfsroot
+
+[Network]
+DHCP=no
+Address=@@NETWORK_STATIC_IP@@/24

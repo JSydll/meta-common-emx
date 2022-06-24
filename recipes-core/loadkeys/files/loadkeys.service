@@ -1,0 +1,8 @@
+[Unit]
+Description=Tries to load a certain keyboard layout
+
+[Service]
+ExecStart=/bin/sh -c '/usr/bin/loadkeys %%PROFILE%%'
+
+[Install]
+WantedBy=multi-user.target
