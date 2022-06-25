@@ -11,7 +11,7 @@ SUMMARY = "Configures the WPA client for wifi connections."
 LICENSE = "MIT"
 LIC_FILES_CHKSUM = "file://${COMMON_LICENSE_DIR}/MIT;md5=0835ade698e0bcf8506ecda2f7b4f302"
 
-SRC_URI += "file://wifi-ap.conf"
+SRC_URI += "file://wifi-ap.conf.j2"
 
 DISTRO_FEATURES_append = "wifi"
 
@@ -23,21 +23,19 @@ inherit systemd
 SYSTEMD_AUTO_ENABLE = "enable"
 SYSTEMD_SERVICE_${PN} += "wifi-ap.service"
 
-# Use the preplace class to patch template source files
-inherit preplace
-
-TEMPLATE_FILE = "${WORKDIR}/wifi-ap.conf"
-
+inherit templating
 require create_wpa_psk.inc
+
+TEMPLATE_FILE = "${WORKDIR}/wifi-ap.conf.j2"
 
 python do_patch_append() {
     ssid = d.getVar('WIFI_SSID', True)
     pwd = d.getVar('WIFI_PWD', True)
     params = { 
-        "WIFI_SSID": ssid,
-        "WIFI_PSK": create_wpa_psk(ssid, pwd)
+        "ssid": ssid,
+        "psk": create_wpa_psk(ssid, pwd)
     }
-    preplace_execute(d.getVar('TEMPLATE_FILE', True), params)
+    render_template(d.getVar('TEMPLATE_FILE', True), params)
 }
 
 do_install_append () {

@@ -26,12 +26,6 @@ An example for possible variable assignments can be found in `.env.example`.
 - `loadkeys` (variables: `KEYBOARD_PROFILE`):
   - Loading a certain keyboard profile.
 
-**Base files adjustments**:
-
-- `base-files` (variables: `HOST_NAME`, `CUSTOM_DISTRO_NAME`, `CUSTOM_DISTRO_VERSION`):
-  - Provide a custom host name.
-  - Setting custom distro name and version.
-
 **Connectivity**:
 
 - `static-ip-config` (variables: `NETWORK_STATIC_IP`):

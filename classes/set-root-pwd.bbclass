@@ -9,8 +9,7 @@
 
 inherit extrausers
 
-ROOT_PWD_ENCRYPTED = "$(mkpasswd -m sha256crypt ${ROOT_PWD})"
-
+# Note: The single quotes are necessary to avoid further variable expansion
 EXTRA_USERS_PARAMS += "\
-    usermod --password '${ROOT_PWD_ENCRYPTED}' root; \
+    usermod --password '$(openssl passwd -6 ${ROOT_PWD})' root; \
 "

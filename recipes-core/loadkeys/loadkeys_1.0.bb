@@ -13,7 +13,7 @@ LIC_FILES_CHKSUM = "file://${COMMON_LICENSE_DIR}/MIT;md5=0835ade698e0bcf8506ecda
 FILESEXTRAPATHS_prepend := "${THISDIR}/files:"
 
 SRC_URI += " \
-    file://loadkeys.service \
+    file://loadkeys.service.j2 \
 "
 
 inherit systemd
@@ -23,10 +23,9 @@ FILES_${PN} += "${sysconfdir}/systemd"
 SYSTEMD_AUTO_ENABLE = "enable"
 SYSTEMD_SERVICE_${PN} += "loadkeys.service"
 
-# Use the preplace class to patch template source files
-inherit preplace
+inherit templating
 
-TEMPLATE_FILE = "${WORKDIR}/loadkeys.service"
+TEMPLATE_FILE = "${WORKDIR}/loadkeys.service.j2"
 
 python do_patch_append() {
     profile = d.getVar('KEYBOARD_PROFILE', True)
@@ -34,9 +33,9 @@ python do_patch_append() {
         bb.error("No keyboard profile specified, but package 'loadkeys' included!")
     
     params = {
-        "PROFILE" : profile 
+        "profile" : profile 
     }
-    preplace_execute(d.getVar('TEMPLATE_FILE', True), params)
+    render_template(d.getVar('TEMPLATE_FILE', True), params)
 }
 
 do_install () {

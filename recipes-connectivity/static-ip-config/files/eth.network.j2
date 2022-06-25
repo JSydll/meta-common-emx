@@ -1,7 +1,7 @@
 [Match]
-Name=wlan*
+Name=eth*
 KernelCommandLine=!nfsroot
 
 [Network]
 DHCP=no
-Address=@@NETWORK_STATIC_IP@@/24
+Address={{ static_ip }}/24
