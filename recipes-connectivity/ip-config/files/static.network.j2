@@ -1,7 +1,9 @@
 [Match]
-Name=eth*
+Name={{ interface_type }}*
 KernelCommandLine=!nfsroot
 
 [Network]
 DHCP=no
+DNS=8.8.8.8
 Address={{ static_ip }}/24
+Gateway={{ gateway_ip }}

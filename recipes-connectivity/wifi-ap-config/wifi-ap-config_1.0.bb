@@ -16,7 +16,7 @@ SRC_URI += "file://wifi-ap.conf.j2"
 DISTRO_FEATURES_append = "wifi"
 
 # Ensure the wpa-supplicant is available 
-RDEPENDS_${PN} += "systemd wpa-supplicant"
+RDEPENDS_${PN} += "systemd wpa-supplicant iptables"
 
 inherit systemd
 

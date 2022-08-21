@@ -1,7 +1,6 @@
 [Match]
-Name=wlan*
+Name={{ interface_type }}*
 KernelCommandLine=!nfsroot
 
 [Network]
-DHCP=no
-Address={{ static_ip }}/24
+DHCP=v4
