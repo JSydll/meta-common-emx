@@ -1,0 +1,8 @@
+[Unit]
+Description=Mount USB drive (/dev/%i)
+
+[Service]
+Type=oneshot
+RemainAfterExit=true
+ExecStart=/usr/sbin/mount_device add %i
+ExecStop=/usr/sbin/mount_device remove %i
