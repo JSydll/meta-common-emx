@@ -41,6 +41,11 @@ An example for possible variable assignments can be found in `.env.example`.
 - `media-automount` package:
   - Adds automount capabilities for external devices (e.g. USB).
 
+**System**:
+
+- `overlay-control` package:
+  - Provides a CLI to manage overlays.
+
 ## Contribution
 
 Feel free to contact me in case you have feature proposals or want to contribute.
