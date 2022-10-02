@@ -1,0 +1,3 @@
+# Note: The RUN command needs absolute paths unless the executable resides under /var/udev.
+KERNEL=="sd[a-z][0-9]",SUBSYSTEM=="block",SUBSYSTEMS=="usb",ACTION=="add",RUN+="/bin/systemctl start media-automount@%k.service"
+KERNEL=="sd[a-z][0-9]",SUBSYSTEM=="block",SUBSYSTEMS=="usb",ACTION=="remove",RUN+="/bin/systemctl stop media-automount@%k.service"

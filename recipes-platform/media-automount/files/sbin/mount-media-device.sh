@@ -51,7 +51,7 @@ function get_new_mount_point()
 
 function get_existing_mount_point()
 {
-    mount | grep "${DEVICE}" | awk '{ print $3 }'
+    mount | grep -m 1 "${DEVICE}" | awk '{ print $3 }'
 }
 
 function get_mount_options()
@@ -90,15 +90,17 @@ function do_unmount()
 {
     if ! is_mounted; then
         log "Warning: ${DEVICE} is not mounted (anymore)!"
-    else
-        umount -l "${DEVICE}"
+        exit 0
     fi
     local mount_point
     mount_point="$(get_existing_mount_point)"
+    
+    umount -l "${DEVICE}"
+    log "**** Unmounted ${DEVICE}. ****"
     if [[ -e "${mount_point}" ]]; then
         rmdir "${mount_point}"
+        log "**** Removed ${mount_point} previously used for ${DEVICE}. ****"
     fi
-    log "**** Unmounted ${DEVICE} and removed ${mount_point}. ****"
 }
 
 case "${ACTION}" in
