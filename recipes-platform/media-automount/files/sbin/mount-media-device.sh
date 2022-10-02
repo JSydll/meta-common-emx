@@ -54,15 +54,6 @@ function get_existing_mount_point()
     mount | grep -m 1 "${DEVICE}" | awk '{ print $3 }'
 }
 
-function get_mount_options()
-{
-    local opts="rw,relatime"
-    if [[ "${TYPE}" == "vfat" ]]; then
-        opts+=",users,gid=100,umask=000,shortname=mixed,utf8=1,flush"
-    fi
-    echo "${opts}"
-}
-
 function do_mount()
 {
     if is_mounted; then
@@ -78,7 +69,7 @@ function do_mount()
         exit 17
     fi
 
-    if ! mount -o "$(get_mount_options)" "${DEVICE}" "${mount_point}"; then
+    if ! mount -o defaults,rw "${DEVICE}" "${mount_point}"; then
         log "Error mounting ${DEVICE} (status = $?)"
         rmdir "${mount_point}"
         exit 5
