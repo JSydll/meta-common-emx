@@ -1,2 +1,0 @@
-KERNEL=="sd[a-z]*",SUBSYSTEM=="block",SUBSYSTEMS=="usb",ACTION=="add",RUN+="systemctl start media-automount@%k.service"
-KERNEL=="sd[a-z]*",SUBSYSTEM=="block",SUBSYSTEMS=="usb",ACTION=="remove",RUN+="systemctl stop media-automount@%k.service"

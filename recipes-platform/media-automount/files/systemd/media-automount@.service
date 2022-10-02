@@ -2,7 +2,7 @@
 Description=Mount USB drive (/dev/%i)
 
 [Service]
-Type=oneshot
+Type=simple
 RemainAfterExit=true
-ExecStart=/usr/sbin/mount_device add %i
-ExecStop=/usr/sbin/mount_device remove %i
+ExecStart=/usr/sbin/mount-media-device add %i
+ExecStop=/usr/sbin/mount-media-device remove %i

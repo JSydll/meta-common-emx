@@ -10,9 +10,9 @@ LICENSE = "MIT"
 LIC_FILES_CHKSUM = "file://${COMMON_LICENSE_DIR}/MIT;md5=0835ade698e0bcf8506ecda2f7b4f302"
 
 SRC_URI += " \
-    file://sbin/mount_device.sh \
+    file://sbin/mount-media-device.sh \
     file://systemd/media-automount@.service \
-    file://udev/99-local.rules \
+    file://udev/99-media-automount.rules \
 "
 
 RDEPENDS_${PN} += "systemd udev bash"
@@ -31,7 +31,7 @@ do_install () {
     install -d ${D}${systemd_unitdir}/system
     install -d ${D}${sysconfdir}/udev/rules.d
 
-    install -m 0775 ${WORKDIR}/sbin/mount_device.sh ${D}${sbindir}/mount_device
+    install -m 0775 ${WORKDIR}/sbin/mount-media-device.sh ${D}${sbindir}/mount-media-device
     install -m 0644 ${WORKDIR}/systemd/media-automount@.service ${D}${systemd_unitdir}/system/
-    install -m 0644 ${WORKDIR}/udev/99-local.rules ${D}${sysconfdir}/udev/rules.d/
+    install -m 0644 ${WORKDIR}/udev/99-media-automount.rules ${D}${sysconfdir}/udev/rules.d/
 }
