@@ -15,16 +15,18 @@ SRC_URI += " \
     file://udev/99-media-automount.rules \
 "
 
-RDEPENDS_${PN} += "systemd udev bash"
+RDEPENDS:${PN} += "systemd udev bash"
 
 inherit systemd
 
-FILES_${PN} += " \
+FILES:${PN} += " \
+    ${sbindir}/* \
+    ${sysconfdir}/udev/rules.d/* \
     ${systemd_unitdir}/system/* \
 "
 
 SYSTEMD_AUTO_ENABLE = "enable"
-SYSTEMD_SERVICE_${PN} += "media-automount@.service"
+SYSTEMD_SERVICE:${PN} += "media-automount@.service"
 
 do_install () {
     install -d ${D}${sbindir}

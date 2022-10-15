@@ -16,16 +16,16 @@ SRC_URI += " \
 
 inherit systemd
 
-FILES_${PN} += "${sysconfdir}/systemd"
+FILES:${PN} += "${sysconfdir}/systemd"
 
 SYSTEMD_AUTO_ENABLE = "enable"
-SYSTEMD_SERVICE_${PN} += "loadkeys.service"
+SYSTEMD_SERVICE:${PN} += "loadkeys.service"
 
 inherit templating
 
 TEMPLATE_FILE = "${WORKDIR}/loadkeys.service.j2"
 
-python do_patch_append() {
+python do_patch:append() {
     profile = d.getVar('KEYBOARD_PROFILE', True)
     if profile is None:
         bb.error("No keyboard profile specified, but package 'loadkeys' included!")

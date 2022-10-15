@@ -13,22 +13,22 @@ LIC_FILES_CHKSUM = "file://${COMMON_LICENSE_DIR}/MIT;md5=0835ade698e0bcf8506ecda
 
 SRC_URI += "file://wifi-ap.conf.j2"
 
-DISTRO_FEATURES_append = "wifi"
+DISTRO_FEATURES:append = "wifi"
 
 # Ensure the wpa-supplicant is available 
-RDEPENDS_${PN} += "systemd wpa-supplicant"
+RDEPENDS:${PN} += "systemd wpa-supplicant"
 
 inherit systemd
 
 SYSTEMD_AUTO_ENABLE = "enable"
-SYSTEMD_SERVICE_${PN} += "wifi-ap.service"
+SYSTEMD_SERVICE:${PN} += "wifi-ap.service"
 
 inherit templating
 require create_wpa_psk.inc
 
 TEMPLATE_FILE = "${WORKDIR}/wifi-ap.conf.j2"
 
-python do_patch_append() {
+python do_patch:append() {
     ssid = d.getVar('WIFI_SSID', True)
     pwd = d.getVar('WIFI_PWD', True)
     params = { 
@@ -38,7 +38,7 @@ python do_patch_append() {
     render_template(d.getVar('TEMPLATE_FILE', True), params)
 }
 
-do_install_append () {
+do_install:append () {
     install -d ${D}${sysconfdir}/wpa_supplicant/
     install -D -m 600 ${WORKDIR}/wifi-ap.conf ${D}${sysconfdir}/wpa_supplicant/
 

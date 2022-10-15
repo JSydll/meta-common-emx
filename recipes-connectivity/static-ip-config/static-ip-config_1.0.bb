@@ -16,11 +16,11 @@ SRC_URI += " \
     file://wlan.network.j2 \
 "
 
-FILES_${PN} += " \
+FILES:${PN} += " \
     ${sysconfdir}/systemd/network/* \
 "
 
-RDEPENDS_${PN} += "systemd"
+RDEPENDS:${PN} += "systemd"
 
 inherit logging
 inherit templating

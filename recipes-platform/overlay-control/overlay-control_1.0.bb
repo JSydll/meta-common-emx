@@ -11,7 +11,7 @@ SRC_URI += " \
     file://usr/bin/overlay-control.sh \
 "
 
-RDEPENDS_${PN} = "bash"
+RDEPENDS:${PN} = "bash"
 
 do_install () {
     install -d ${D}${bindir}
