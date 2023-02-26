@@ -7,17 +7,12 @@
 # - WIFI_PWD
 FILESEXTRAPATHS:prepend := "${THISDIR}/files:"
 
-SRC_URI += "file://wifi-ap.conf.j2"
-
-DISTRO_FEATURES:append = "wifi"
+SRC_URI += "file://wpa_supplicant-wlan0.conf.j2"
 
 inherit templating
 require create_wpa_psk.inc
 
-TEMPLATE_FILE = "${WORKDIR}/wifi-ap.conf.j2"
-
-# Alias following a more feature-oriented naming
-RPROVIDES:${PN} = "wifi-ap-config"
+TEMPLATE_FILE = "${WORKDIR}/wpa_supplicant-wlan0.conf.j2"
 
 python do_patch:append() {
     ssid = d.getVar('WIFI_SSID', True)
@@ -29,7 +24,11 @@ python do_patch:append() {
     render_template(d.getVar('TEMPLATE_FILE', True), params)
 }
 
+# Enable the service on boot
+SYSTEMD_SERVICE:${PN}:append = " wpa_supplicant@wlan0.service "
+SYSTEMD_AUTO_ENABLE = "enable"
+
 do_install:append () {
-    install -d ${D}${sysconfdir}
-    install -D -m 600 ${WORKDIR}/wifi-ap.conf ${D}${sysconfdir}/wpa_supplicant.conf
+    install -d ${D}${sysconfdir}/wpa_supplicant/
+    install -D -m 600 ${WORKDIR}/wpa_supplicant-wlan0.conf ${D}${sysconfdir}/wpa_supplicant/wpa_supplicant-wlan0.conf
 }
