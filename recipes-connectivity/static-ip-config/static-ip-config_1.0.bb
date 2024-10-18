@@ -22,7 +22,6 @@ FILES:${PN} += " \
 
 RDEPENDS:${PN} += "systemd"
 
-inherit logging
 inherit templating
 
 TEMPLATE_FILES = "\
